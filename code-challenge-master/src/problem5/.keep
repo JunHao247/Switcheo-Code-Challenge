@@ -1,0 +1,13 @@
+contract TokenBalance {
+function getBalances(address _wallet, address[] memory _tokens) public view returns (bytes32[] memory, uint256[] memory) {
+bytes32[] memory tokenSymbols = new bytes32;
+uint256[] memory tokenBalances = new uint256;
+for (uint256 i = 0; i < _tokens.length; i++) {
+// ERC20 interface for getting the token symbol
+ERC20 erc20 = ERC20(_tokens[i]);
+tokenSymbols[i] = erc20.symbol();
+tokenBalances[i] = erc20.balanceOf(_wallet);
+}
+return (tokenSymbols, tokenBalances);
+}
+}

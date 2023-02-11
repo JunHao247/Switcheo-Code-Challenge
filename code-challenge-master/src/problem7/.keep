@@ -1,0 +1,16 @@
+-- Select the addresses from the balances table
+SELECT b.address
+-- Join the balances and trades table on the address column
+FROM balances b
+JOIN trades t ON b.address = t.address
+-- Filter the trades that have been made after block height 730000
+WHERE t.block_height > 730000
+-- Group the results by address
+GROUP BY b.address
+-- Calculate the total balance of each wallet by converting the denom to USD and summing the amount
+HAVING SUM(CASE 
+              WHEN b.denom = 'usdc' THEN b.amount * 0.000001
+              WHEN b.denom = 'swth' THEN b.amount * 0.00000005
+              WHEN b.denom = 'tmz' THEN b.amount * 0.003
+           END) >= 500;
+-- Select only the addresses whose total balance is at least $500.
