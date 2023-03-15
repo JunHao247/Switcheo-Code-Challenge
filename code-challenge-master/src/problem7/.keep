@@ -45,7 +45,8 @@
 
 -- Note:
 
--- 1. You are recommended to use PostgreSQL because that is what we are using. However, feel free to use a language you are more familiar with.
+-- 1. You are recommended to use PostgreSQL because that is what we are using. However, feel free to use a language
+ -- you are more familiar with.
 -- 2. You’re not supposed to write a function/procedure, the solution should be entirely implemented in one query statement.
 
 
@@ -75,3 +76,12 @@ HAVING SUM(CASE
 -- the trades made after block height 730000. It then groups the results by the address column and
 -- calculates the total balance of each wallet by summing the converted USD values of each balance.
 -- Finally, it selects only the addresses whose total balance is at least $500.
+--1). We start the query by selecting the address column from the balances table.
+--2). Next, we join the balances table (aliased as 'b') with the trades table (aliased as 't') on the address column, so that we can get information on both the recent trades and the wallet balances of each address.
+--3).We add a WHERE clause to alter only the trades that have been made after block height 730000, which we were told in the problem statement is considered recent.
+--4).We add a GROUP BY clause to group the results by address, so that we only get one result per address.
+--5). Finally, we use a HAVING clause to only return the addresses whose total balance is at least $500.
+--We calculate the total balance of each wallet by converting the balance amount of each denom to its USD value using a
+--CASE statement, and then summing these USD values. If the sum is greater than or equal to 500, the address will be returned.
+--Note that in this query, we assume that all balance amounts are given in the smallest unit of each currency (e.g. cents for USD), which is why we need to multiply the amounts by the appropriate conversion factor to get the USD value.
+--If the amounts were already given in their USD value, this conversion step would not be necessary.

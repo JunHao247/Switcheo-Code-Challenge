@@ -62,8 +62,9 @@
 
 
 --Below is the solution for the given problem :
---): Here's a sample Solidity contract to achieve the desired functionality: Step - 1
---pragma solidity ^0.8.0;
+--): Here's a sample Solidity contract to achieve the desired functionality:
+-- Step - 1
+pragma solidity ^0.8.0;
 
 contract TokenBalance {
 function getBalances(address _wallet, address[] memory _tokens)
